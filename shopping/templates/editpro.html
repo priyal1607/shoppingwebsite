@@ -1,0 +1,39 @@
+<html>
+    <head>
+            <style>
+                .q{
+                    margin-left: 20%;
+                    margin-right: 20%;
+                    margin-top: 5%;
+            background-color: rgb(70, 53, 53);
+        }
+        .ss{
+            background-color: rgb(252, 246, 239);
+            border: 1px solid black;
+            padding-bottom: 6%;
+            padding-top: 6%;
+            padding-left: 40%;
+        }
+        .s{
+            background-color: black;
+            border: 1px solid black;
+            padding-left: 48%;
+        }
+            </style>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+        <div class="q">
+            <!-- Vendor End --><div class="s"><h3 style="color: white;">Edit Profile</h3></div>
+                        <div class="ss">
+                           <h4  style="color: rgb(15, 7, 7);">name   :<input type="text" name="name" value="{{d.name}}"><br><br>
+                            Email  :   <input type="email" name="email" value="{{d.email}}"><br><br>
+                            phone no:<input type="number" name="phoneno" value="{{d.phoneno}}"></h4>
+                            <input type="submit" name="submit" value="Save">
+                           
+                        </div>
+                        </div>
+                    </form>
+    </body>
+</html>
