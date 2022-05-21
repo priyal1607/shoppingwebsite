@@ -1,9 +1,12 @@
 from datetime import date
+from operator import index
 from tkinter import LAST
+from django.contrib import messages
+from email.message import EmailMessage
 from turtle import color
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from shopping.models import product,category,register,addtocart,deresses
+from shopping.models import product,category,register,addtocart,deresses,contactss
 import random
 from django.db.models import Q
 import ssl ,smtplib
@@ -16,12 +19,12 @@ def showall(req):
         s=req.session['email']
         m=register.objects.get(email=s)
         a=product.objects.all()
-        v=product.objects.filter().order_by('-date')
+        v=product.objects.all().order_by('-date')
         j=deresses.objects.all()
         return render(req,'index.html',{'a':a,'m':m,'vv':v,'j':j})
     else:
         a=product.objects.all()
-        v=product.objects.filter().order_by('-date')
+        v=product.objects.all().order_by('-date')
         j=deresses.objects.all()
         return render(req,'index.html',{'a':a,'vv':v,'j':j})
 
@@ -36,6 +39,7 @@ def check(req):
         s=req.session['email']
         m=register.objects.get(email=s)
         return render(req,'checkout.html',{'m':m})
+        
 def checkout(req):
     if req.session.has_key('email'):
         a=req.session['email']
@@ -68,13 +72,6 @@ def shop(req):
     else:
         a=product.objects.all()
         return render(req,'shop.html',{'a':a})
-def contacts(req):
-    if req.session.has_key('email'):
-        s=req.session['email']
-        m=register.objects.get(email=s)
-        return render(req,'contact.html',{'m':m})
-    else:
-        return render(req,'contact.html')
 
 def view(req,pk):
     if req.session.has_key('email'):
@@ -146,7 +143,7 @@ def forgotpwd(request):
     request.session['otp']=otp
 
     port = 465
-    password = "pP123456"
+    password = "123456Pp@"
     context = ssl.create_default_context()
     server = smtplib.SMTP_SSL("smtp.gmail.com",port,context=context)
     server.login("psavaliya943@gmail.com",password)
@@ -260,13 +257,13 @@ def c(request):
         a=product.objects.all()
         v=category.objects.all()
         j=deresses.objects.all()
-        vv=product.objects.filter().order_by('-date')
+        vv=product.objects.filter(date=date.today())
         return render(request,'index.html',{'m':m,'v':v,'a':a,'j':j,'vv':vv})
     else:
         j=deresses.objects.all()
         a=product.objects.all()
         v=category.objects.all()
-        vv=product.objects.filter().order_by('-date')
+        vv=product.objects.filter(date=date.today())
         return render(request,'index.html',{'v':v,'a':a,'j':j,'vv':vv})
         
 def categ(request,name):
@@ -276,13 +273,13 @@ def categ(request,name):
         c=category.objects.get(name=name)
         j=deresses.objects.all()
         p=product.objects.all().filter(cat=c)
-        v=product.objects.filter().order_by('-date')
+        v=product.objects.filter(date=date.today())
         return render(request,'catw.html',{'m':m,'c':c,'p':p,'j':j,'vv':v})
     else:
         c=category.objects.get(name=name)
         j=deresses.objects.all()
         p=product.objects.all().filter(cat=c).distinct()
-        v=product.objects.filter().order_by('-date')
+        v=product.objects.filter(date=date.today())
         return render(request,'catw.html',{'c':c,'p':p,'j':j,'vv':v})
 def home(request):
     if request.session.has_key('email'):
@@ -304,7 +301,9 @@ def home(request):
                 auth=("rzp_test_X3FfcfEy2LCgca", "nwdqRktfnNsOSMHWOkHfgtBd"))
             payment = client.order.create({'amount': amount,'currency': 'INR',
                                        'payment_capture': '1'})
+            cart.delete()
             return redirect(success)
+           
         return render(request, 'index1.html',{'amount':amount,'p':p})
     
 
@@ -357,7 +356,7 @@ def pcatt(request):
         return render(request,'shop1.html',{'bb':bb,'m':m})
 
     else:
-        aa=product.objects.filter(range='200-300')
+        bb=product.objects.filter(range='200-300')
         return render(request,'shop1.html',{'bb':bb})
 def pcattt(request):
     if request.session.has_key('email'):
@@ -367,7 +366,7 @@ def pcattt(request):
         return render(request,'shop1.html',{'cc':cc,'m':m})
 
     else:
-        aa=product.objects.filter(range='300-400')
+        cc=product.objects.filter(range='300-400')
         return render(request,'shop1.html',{'cc':cc})
 def pcatttt(request):
     if request.session.has_key('email'):
@@ -377,7 +376,7 @@ def pcatttt(request):
         return render(request,'shop1.html',{'dd':dd,'m':m})
 
     else:
-        aa=product.objects.filter(range='400-500')
+        dd=product.objects.filter(range='400-500')
         return render(request,'shop1.html',{'dd':dd})
 
 def col(request):
@@ -420,7 +419,7 @@ def colorr(request):
         return render(request,'shop1.html',{'v':v,'m':m})
 
     else:
-        u=product.objects.filter(color='black')
+        v=product.objects.filter(color='black')
         return render(request,'shop1.html',{'v':v})
 
 def size(request):
@@ -431,7 +430,7 @@ def size(request):
         return render(request,'shop1.html',{'p':p,'m':m})
 
     else:
-        p=product.objects.filter(size='black')
+        p=product.objects.filter(size='XL')
         return render(request,'shop1.html',{'p':p})
 
 def sizes(request):
@@ -442,7 +441,7 @@ def sizes(request):
         return render(request,'shop1.html',{'q':q,'m':m})
 
     else:
-        q=product.objects.filter(size='black')
+        q=product.objects.filter(size='S')
         return render(request,'shop1.html',{'q':q})
 def sizess(request):
     if request.session.has_key('email'):
@@ -452,7 +451,7 @@ def sizess(request):
         return render(request,'shop1.html',{'r':r,'m':m})
 
     else:
-        r=product.objects.filter(size='black')
+        r=product.objects.filter(size='M')
         return render(request,'shop1.html',{'r':r})
 
 def sizesss(request):
@@ -460,21 +459,23 @@ def sizesss(request):
         s=request.session['email']
         m=register.objects.get(email=s)
         s=product.objects.filter(size='L')
-        return render(request,'shop1.html',{'s':s,'m':m})
+        return render(request,'shop1.html',{'sh':s,'m':m})
 
     else:
-        s=product.objects.filter(size='black')
-        return render(request,'shop1.html',{'s':s})
+        s=product.objects.filter(size='L')
+        return render(request,'shop1.html',{'sh':s})
 
 def sort(request):
     if request.session.has_key('email'):
         s=request.session['email']
         m=register.objects.get(email=s)
-        v=product.objects.filter().order_by('-date')
-        return render(request,'sort.html',{'vv':v})
+        v=product.objects.filter(date=date.today())
+        z=product.objects.all().order_by('-date')
+        return render(request,'sort.html',{'vv':v,'m':m,'z':z})
     else:
-        v=product.objects.filter().order_by('-date')
-        return render(request,'sort.html.html',{'vv':v})
+        v=product.objects.filter(date=date.today())
+        z=product.objects.all().order_by('-date')
+        return render(request,'sort.html',{'vv':v,'z':z})
 
 def prof(request):
     if request.session.has_key('email'):
@@ -494,5 +495,105 @@ def editprof(request):
            d.save()
            return redirect(loginview)
    return render(request,'editpro.html',{'d':d})
+
+
+def contactsss(request):
+    if request.session.has_key('email'):
+        d=register.objects.get(email=request.session['email'])
+        if request.method=='POST':
+            a=contactss()
+            a.name = request.POST['name']
+            a.email = request.POST['email']
+            a.msg = request.POST['msg']
+            a.save()
+            print(a.msg)
+
+            msg = EmailMessage()
+            msg.set_content(f'''
+            Thank you for connecting with us.
+
+            name: {a.name}
+            email: {a.email}
+            msg: {a.msg}
+            ''')
+
+            msg['Subject'] = 'shopping'
+            msg['From'] = "psavaliya943@gmail.com"
+            msg['To'] = a.email
+
+            # Send the message via our own SMTP server.
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.login("psavaliya943@gmail.com", "123456Pp@")
+            server.send_message(msg)
+            server.quit()
+            messages.info(request,'Message had been sent. Thank you for your notes.')
+            return redirect(showall)
+        return render(request,'contact.html',{'m':d})
+    else:
+        if request.method=='POST':
+            a=contactss()
+            a.name = request.POST['name']
+            a.email = request.POST['email']
+            a.msg = request.POST['msg']
+            a.save()
+            print(a.msg)
+
+            msg = EmailMessage()
+            msg.set_content(f'''
+            Thank you for connecting with us.
+
+            name: {a.name}
+            email: {a.email}
+            msg: {a.msg}
+            ''')
+
+            msg['Subject'] = 'shopping'
+            msg['From'] = "psavaliya943@gmail.com"
+            msg['To'] = a.email
+
+            # Send the message via our own SMTP server.
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.login("psavaliya943@gmail.com", "123456Pp@")
+            server.send_message(msg)
+            server.quit()
+            messages.info(request,'Message had been sent. Thank you for your notes.')
+            return redirect(showall)
+        return render(request,'contact.html')
+    
+
+def ms(request):
+    if request.session.has_key('email'):
+        a=request.session['email']
+        m=register.objects.get(email=a)
+        cart=addtocart.objects.filter(personname=m.pk)
+        l=[]
+        p=0
+        for i in cart:
+            l.append(i.productname)
+            p=p+i.price
+        p=p+100
+        p=str(p)
+        request.session['price']=p
+        
+
+
+        port = 465
+        password = "123456Pp@"
+        context = ssl.create_default_context()
+        server = smtplib.SMTP_SSL("smtp.gmail.com",port,context=context)
+        server.login("psavaliya943@gmail.com",password)
+        msg=MIMEText("welcome\n" + a + "\nyour total amount  is : "+ p +"\nyour order will be  delivered in next five days")
+        msg['subject']='payment'
+        server.sendmail("psavaliya943@gmail.com",a,msg.as_string())
+        server.quit()
+        print(msg)
+        cart.delete()
+        return HttpResponse("<h2>your order will be  delivered in next five days </h2>")
+    else:
+        return redirect(loginview)
+
+
+            
+
 
 # Create your views here.

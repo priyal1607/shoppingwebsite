@@ -25,6 +25,11 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <style>
+        .d{
+            float: left;
+            margin-left: -50%;
+          
+        }
         .a{
           float: left;
           width: 25%;
@@ -35,18 +40,15 @@
           clear: both;
           display: table;
         }
-        .q{
-            
-            background-image:url('vendor-7.jpg') ;
-        }
+        
         .ss{
-           
             border: 1px solid black;
             padding-bottom: 6%;
             padding-top: 6%;
             padding-left: 40%;
         }
         .s{
+            
             background-color: black;
             border: 1px solid black;
             padding-left: 48%;
@@ -91,7 +93,7 @@
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-warning font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
@@ -99,7 +101,7 @@
                     <div class="input-group">
                         <form method="GET"><input type="text" class="form-control" placeholder="Search for products" name="search"></form>
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <span class="input-group-text bg-transparent text-warning">
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
@@ -108,11 +110,11 @@
             </div>
             <div class="col-lg-3 col-6 text-right">
                 <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
+                    <i class="fas fa-heart text-warning"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i>
+                <a href="{% url "viewcart" %}" class="btn border">
+                    <i class="fas fa-shopping-cart text-warning"></i>
                     <span class="badge">0</span>
                 </a>
             </div>
@@ -126,7 +128,7 @@
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="qq">
-                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" href="{% url "c" %}" style="height: 65px; margin-top: -1px; padding: 0 30px;" >
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-warning text-white w-100" href="{% url "c" %}" style="height: 65px; margin-top: -1px; padding: 0 30px;" >
                     <h6 class="m-0">category</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
@@ -144,7 +146,7 @@
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-warning font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -173,8 +175,10 @@
                     </div>
                 </nav>
                 <div class="q">
+                    
     <!-- Vendor End --><div class="s"><h3 style="color: white;">Profile</h3></div>
                 <div class="ss">
+                    <div class="d"><img src="{% static 'img/im.jpg' %}" height="300" width="300"></div>
                    <h4  style="color: white;"><pre>Name  : {{m.name}}</pre><br>
                     <pre>Email  :  {{m.email}}</pre> <br>
                     <pre>password : {{m.password}}</pre><br>
@@ -188,12 +192,12 @@
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
-                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-warning font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
                 </a>
                 <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-warning mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-warning mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-warning mr-3"></i>+012 345 67890</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
@@ -230,7 +234,7 @@
                                     required="required" />
                             </div>
                             <div>
-                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                                <button class="btn btn-warning btn-block border-0 py-3" type="submit">Subscribe Now</button>
                             </div>
                         </form>
                     </div>
@@ -255,7 +259,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-warning back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
     <!-- JavaScript Libraries -->

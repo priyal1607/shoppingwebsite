@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('show',showall,name='showall'),
-    path('contact/',contacts,name='contact'),
+    path('contact/',contactsss,name='contact'),
     path('carts/',cart,name='cartss'),
     path('check/',check,name='check'),
     path('cheakout/',checkout,name='checkout'),
@@ -44,5 +44,6 @@ urlpatterns = [
     path('sizesss/',sizesss,name='sizesss'),
     path('sort/',sort,name='sort'),
     path('profile/',prof,name='profile'),
-    path('editprofile/',editprof,name='editprofile')
+    path('editprofile/',editprof,name='editprofile'),
+    path('ms/',ms,name='ms'),
 ]
